@@ -1,0 +1,18 @@
+<div class="container mx-auto px-5">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold">My Albums</h1>
+    <%= link_to "Create Album", new_album_path, class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 font-semibold" %>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <% @albums.each do |album| %>
+      <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+        <div class="p-4 flex-1 flex flex-col">
+          <h2 class="text-xl font-semibold mb-2"><%= album.title %></h2>
+          <p class="text-gray-600 mb-4"><%= album.description %></p>
+          <%= link_to "View", album_path(uuid: album.uuid), class: "bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 font-semibold mt-auto w-fit" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

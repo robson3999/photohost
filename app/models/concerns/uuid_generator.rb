@@ -5,6 +5,7 @@ module UuidGenerator
 
   included do
     before_validation :assign_uuid
+    validates :uuid, presence: true, uniqueness: true
   end
 
   private

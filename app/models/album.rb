@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Album < ApplicationRecord
+  include UuidGenerator
+
   belongs_to :user
 
   has_many :photo_albums, dependent: :destroy
@@ -8,6 +10,6 @@ class Album < ApplicationRecord
 
   validates :title, presence: true
 
-  scope :private, -> { where(private: true) }
-  scope :public, -> { where(private: false) }
+  scope :secret, -> { where(private: true) }
+  scope :published, -> { where(private: false) }
 end
