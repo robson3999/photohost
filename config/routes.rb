@@ -1,4 +1,9 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users
-  resources :photos, only: %i[index create destroy]
+  resources :photos, only: %i[index new create destroy]
+  resources :albums, only: %i[index new create show destroy]
+
+  root 'photos#index'
 end

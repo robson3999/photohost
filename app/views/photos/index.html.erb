@@ -1,0 +1,48 @@
+
+
+
+<div class="container mx-auto px-5">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold">All photos</h1>
+    <%= link_to "Upload", new_photo_path, class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 font-semibold" %>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <% @photos.each_with_index do |photo, idx| %>
+      <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer" onclick="showModal(<%= idx %>)">
+        <% if photo.image.attached? %>
+          <img src="<%= url_for(photo.image) %>" alt="<%= photo.title %>" class="w-full h-48 object-cover" />
+        <% else %>
+          <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">No image</div>
+        <% end %>
+        <div class="p-4 flex-1 flex flex-col">
+          <h2 class="text-xl font-semibold mb-2"><%= photo.title %></h2>
+          <p class="text-gray-600 mb-4"><%= photo.description %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+
+			<!-- Modal Overlay -->
+			<div id="photo-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 transition-opacity duration-300 opacity-0 pointer-events-none" onclick="hideModal(event)">
+				<div id="modal-content" class="relative bg-transparent flex flex-col items-center transform scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+					<img id="modal-image" src="" alt="" class="max-w-full max-h-[80vh] rounded-lg shadow-lg" />
+					<span id="modal-title" class="text-white text-lg font-semibold mt-4"></span>
+					<button onclick="hideModal(event)" class="absolute top-2 right-2 text-white text-2xl font-bold">&times;</button>
+				</div>
+			</div>
+
+
+			<script>
+				window.photoModalPhotos = [
+					<% @photos.each do |photo| %>
+						{
+							url: "<%= url_for(photo.image) %>",
+							title: "<%= j photo.title %>"
+						},
+					<% end %>
+				];
+			</script>
+			<%= javascript_include_tag "photomodal" %>
+</div>

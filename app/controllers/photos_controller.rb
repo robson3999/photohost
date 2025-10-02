@@ -4,16 +4,19 @@ class PhotosController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    render json: { photos: current_user.photos.map(&:shareable_url) }
+    @photos = current_user.photos
+  end
+
+  def new
+    @photo = current_user.photos.new
   end
 
   def create
-    # binding.pry
     photo = current_user.photos.new(photo_params)
     if photo.save
-      render json: { message: 'Photo uploaded successfully', uuid: photo.uuid }, status: :created
+      redirect_to photos_path, notice: 'Photo uploaded successfully.'
     else
-      render json: { errors: photo.errors.full_messages }, status: :unprocessable_entity
+      render :new, alert: 'Failed to upload photo.'
     end
   end
 
