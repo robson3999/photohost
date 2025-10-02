@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_02_160802) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_02_162001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_02_160802) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "albums", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.string "uuid", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "private", default: true, null: false
+    t.index ["user_id"], name: "index_albums_on_user_id"
+    t.index ["uuid"], name: "index_albums_on_uuid", unique: true
+  end
+
+  create_table "photo_albums", force: :cascade do |t|
+    t.bigint "photo_id", null: false
+    t.bigint "album_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["album_id"], name: "index_photo_albums_on_album_id"
+    t.index ["photo_id", "album_id"], name: "index_photo_albums_on_photo_id_and_album_id", unique: true
+    t.index ["photo_id"], name: "index_photo_albums_on_photo_id"
+  end
+
   create_table "photos", force: :cascade do |t|
     t.string "uuid", null: false
     t.string "title"
@@ -68,4 +90,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_02_160802) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "albums", "users"
+  add_foreign_key "photo_albums", "albums"
+  add_foreign_key "photo_albums", "photos"
 end
