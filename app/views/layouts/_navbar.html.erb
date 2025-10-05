@@ -3,9 +3,9 @@
     <%= link_to "Photohost", root_path, class: "text-2xl font-bold text-blue-600" %>
     <%= link_to "Albums", albums_path, class: "text-gray-700 hover:text-blue-600 font-semibold" %>
     <%= link_to "Photos", photos_path, class: "text-gray-700 hover:text-blue-600 font-semibold" %>
-    <% if user_signed_in? %>
-      <%= link_to "My profile", edit_user_registration_path, class: "text-gray-700 hover:text-blue-600 font-semibold" %>
-    <% end %>
+    <%# <% if user_signed_in? %>
+      <%# <%= link_to "My profile", edit_user_registration_path, class: "text-gray-700 hover:text-blue-600 font-semibold" %>
+    <%# <% end %>
   </div>
   <div>
     <% if user_signed_in? %>
