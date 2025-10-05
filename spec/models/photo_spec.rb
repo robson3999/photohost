@@ -4,9 +4,10 @@ require 'rails_helper'
 
 describe Photo, type: :model do
   let(:user) { FactoryBot.create(:user) }
-
+  let(:image) { fixture_file_upload('test.jpg', 'image/jpeg') }
+  let(:title) { 'test.jpg' }
   it 'assigns a uuid before creation' do
-    photo = Photo.new(user: user, image: fixture_file_upload('test.jpg', 'image/jpeg'))
+    photo = Photo.new(user:, image:, title:)
     expect(photo.uuid).to be_nil
     photo.save!
     expect(photo.uuid).to be_present

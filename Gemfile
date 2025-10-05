@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 gem 'rails', '~> 8.0.2', '>= 8.0.2.1'
@@ -28,6 +30,8 @@ gem 'thruster', require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem 'image_processing', '~> 1.2'
+gem 'exifr', '~> 1.3', '>= 1.3.6'
+gem 'fastimage', '~> 2.4'
 gem 'devise', '~> 4.9'
 gem 'tailwindcss-rails', '~> 4.3'
 
