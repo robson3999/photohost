@@ -1,11 +1,11 @@
 // photomodal.js
 // Handles modal logic for photo gallery
 
-const photos = window.photoModalPhotos || [];
-let currentIdx = null;
-
 function showModal(idx) {
-  currentIdx = idx;
+  let photos = window.photoModalPhotos || [];
+  let currentIdx = idx;
+  if (photos.length == 0) return;
+
   document.getElementById('modal-image').src = photos[idx].url;
   document.getElementById('modal-title').textContent = photos[idx].title;
   const modal = document.getElementById('photo-modal');
@@ -17,7 +17,7 @@ function showModal(idx) {
     content.classList.add('scale-100');
     content.classList.remove('scale-95');
   }, 10);
-  document.addEventListener('keydown', handleKey);
+  document.addEventListener('keydown', handleKey, currentIdx, photos.length);
 }
 
 function hideModal(event) {
@@ -31,13 +31,12 @@ function hideModal(event) {
     modal.classList.add('pointer-events-none');
   }, 300);
   document.removeEventListener('keydown', handleKey);
-  currentIdx = null;
 }
 
-function handleKey(e) {
+function handleKey(e, currentIdx, photosLength) {
   if (currentIdx === null) return;
   if (e.key === 'ArrowRight') {
-    if (currentIdx < photos.length - 1) {
+    if (currentIdx < photosLength - 1) {
       showModal(currentIdx + 1);
     }
   } else if (e.key === 'ArrowLeft') {

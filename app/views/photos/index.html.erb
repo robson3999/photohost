@@ -1,6 +1,3 @@
-
-
-
 <div class="container mx-auto px-5">
   <div class="flex justify-between items-center mb-8">
     <h1 class="text-3xl font-bold">All photos</h1>
@@ -24,25 +21,27 @@
   </div>
 
 
-			<!-- Modal Overlay -->
-			<div id="photo-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 transition-opacity duration-300 opacity-0 pointer-events-none" onclick="hideModal(event)">
-				<div id="modal-content" class="relative bg-transparent flex flex-col items-center transform scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
-					<img id="modal-image" src="" alt="" class="max-w-full max-h-[80vh] rounded-lg shadow-lg" />
-					<span id="modal-title" class="text-white text-lg font-semibold mt-4"></span>
-					<button onclick="hideModal(event)" class="absolute top-2 right-2 text-white text-2xl font-bold">&times;</button>
-				</div>
-			</div>
+  <!-- Modal Overlay -->
+  <div id="photo-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 transition-opacity duration-300 opacity-0 pointer-events-none" onclick="hideModal(event)">
+    <div id="modal-content" class="relative bg-transparent flex flex-col items-center transform scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+      <img id="modal-image" src="" alt="" class="max-w-full max-h-[80vh] rounded-lg shadow-lg" />
+      <span id="modal-title" class="text-white text-lg font-semibold mt-4"></span>
+      <button onclick="hideModal(event)" class="absolute top-2 right-2 text-white text-2xl font-bold">&times;</button>
+    </div>
+  </div>
 
 
-			<script>
-				window.photoModalPhotos = [
-					<% @photos.each do |photo| %>
-						{
-							url: "<%= url_for(photo.image) %>",
-							title: "<%= j photo.title %>"
-						},
-					<% end %>
-				];
-			</script>
-			<%= javascript_include_tag "photomodal" %>
+  <script>
+    document.addEventListener("turbo:load", function() {
+      window.photoModalPhotos = [
+        <% @photos.each do |photo| %>
+          {
+            url: "<%= url_for(photo.image) %>",
+            title: "<%= j photo.title %>"
+          },
+        <% end %>
+      ];
+    });
+  </script>
+  <%= javascript_include_tag "photomodal" %>
 </div>
