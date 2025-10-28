@@ -33,7 +33,7 @@ gem 'image_processing', '~> 1.2'
 gem 'exifr', '~> 1.3', '>= 1.3.6'
 gem 'fastimage', '~> 2.4'
 gem 'devise', '~> 4.9'
-gem 'tailwindcss-rails', '~> 4.3'
+gem 'tailwindcss-rails', '~> 4.4'
 
 
 group :development, :test do
